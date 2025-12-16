@@ -1,67 +1,56 @@
+
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link
-} from "react-router-dom";
-import "../styles/App.css";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import './../styles/App.css';
+import Login from "./Login";
+import Playground from "./Playground";
+import PrivateRoute from "./PrivateRoute";
 
-const PrivateRoute = ({ isAuth, children }) => {
-  if (!isAuth) {
-    return <h3>Page not Found</h3>;
-  }
-  return children;
-};
-
-const Login = ({ onLogin }) => (
-  <div>
-    <h2>Login</h2>
-    <button onClick={onLogin}>Login</button>
-  </div>
-);
-
-const Playground = () => <h2>Code Playground</h2>;
-
-function App() {
+const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(!isAuthenticated);
+  };
 
   return (
     <Router>
       <div className="main-container">
-        <p>
-          {isAuthenticated
-            ? "You are authenticated"
-            : "You are not authenticated, Please login first"}
-        </p>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/playground">PlayGround</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </nav>
 
-        <ul>
-          <li>
-            <Link to="/playground">PlayGround</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul>
+        {isAuthenticated ? (
+          <p>Logged in, Now you can enter Playground</p>
+        ) : (
+          <p>You are not authenticated, Please login first</p>
+        )}
 
         <Switch>
           <Route path="/login">
-            <Login onLogin={() => setIsAuthenticated(true)} />
+            <Login isAuthenticated={isAuthenticated} onLogin={handleLogin} />
           </Route>
-
-          <Route path="/playground">
-            <PrivateRoute isAuth={isAuthenticated}>
-              <Playground />
-            </PrivateRoute>
-          </Route>
-
+          <PrivateRoute
+            path="/playground"
+            component={Playground}
+            isAuthenticated={isAuthenticated}
+          />
           <Route path="/">
-            <h3>Page not Found</h3>
+            <div>
+              <h2>Page not Found</h2>
+            </div>
           </Route>
         </Switch>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
