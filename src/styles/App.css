@@ -1,20 +1,60 @@
-
 .main-container {
-  padding: 20px;
   font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+nav {
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
 }
 
 nav ul {
   list-style: none;
   padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
 }
 
 nav li {
   display: inline;
-  margin-right: 15px;
+}
+
+nav a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
 
 button {
-  padding: 8px 16px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0052a3;
+}
+
+h2 {
+  color: #333;
+}
+
+p {
+  color: #555;
+  margin: 10px 0;
 }
